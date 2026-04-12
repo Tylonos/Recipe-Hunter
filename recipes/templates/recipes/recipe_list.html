@@ -11,6 +11,11 @@
             <h2>
                 <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a>
             </h2>
+
+            {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" width="300">
+            {% endif %}
+
             <p>{{ recipe.description }}</p>
             <p>Cooking time: {{ recipe.cooking_time }} minutes</p>
             <hr>

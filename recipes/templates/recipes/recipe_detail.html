@@ -6,6 +6,10 @@
 <body>
     <h1>{{ recipe.title }}</h1>
 
+    {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" width="400">
+    {% endif %}
+
     <p>{{ recipe.description }}</p>
     <p>Cooking time: {{ recipe.cooking_time }} minutes</p>
     <p>Created at: {{ recipe.created_at }}</p>
