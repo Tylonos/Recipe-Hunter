@@ -8,7 +8,9 @@
 
     {% for recipe in recipes %}
         <div>
-            <h2>{{ recipe.title }}</h2>
+            <h2>
+                <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a>
+            </h2>
             <p>{{ recipe.description }}</p>
             <p>Cooking time: {{ recipe.cooking_time }} minutes</p>
             <hr>

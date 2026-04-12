@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ recipe.title }}</title>
+</head>
+<body>
+    <h1>{{ recipe.title }}</h1>
+
+    <p>{{ recipe.description }}</p>
+    <p>Cooking time: {{ recipe.cooking_time }} minutes</p>
+    <p>Created at: {{ recipe.created_at }}</p>
+
+    <a href="{% url 'recipe_list' %}">Back to recipe list</a>
+</body>
+</html>
