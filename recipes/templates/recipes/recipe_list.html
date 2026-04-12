@@ -1,27 +1,108 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Recipes</title>
+    <title>Recipe Hunter</title>
+    <link rel="stylesheet" href="{% static 'recipes/style.css' %}">
 </head>
 <body>
-    <h1>Recipe List</h1>
+    <div class="page-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Pantry</h2>
+            </div>
 
-    {% for recipe in recipes %}
-        <div>
-            <h2>
-                <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a>
-            </h2>
+            <div class="sidebar-section">
+                <input type="text" placeholder="Search for ingredients...">
+                <select>
+                    <option>Filter by...</option>
+                </select>
+            </div>
 
-            {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" width="300">
-            {% endif %}
+            <div class="sidebar-section">
+                <h3>All ingredients</h3>
+                <ul class="ingredient-list">
+                    <li>Apple</li>
+                    <li>Apple</li>
+                    <li>Apple</li>
+                    <li>Apple</li>
+                    <li>Apple</li>
+                    <li>Apple</li>
+                    <li>Apple</li>
+                    <li>Apple</li>
+                </ul>
+            </div>
 
-            <p>{{ recipe.description }}</p>
-            <p>Cooking time: {{ recipe.cooking_time }} minutes</p>
-            <hr>
-        </div>
-    {% empty %}
-        <p>No recipes found.</p>
-    {% endfor %}
+            <div class="sidebar-section">
+                <input type="text" placeholder="Search for ingredients...">
+                <h3>Added ingredients</h3>
+                <ul class="ingredient-list">
+                    <li><span>Tomato</span><span>x4</span></li>
+                    <li><span>Beef</span><span>350g</span></li>
+                    <li><span>Sunflower oil</span><span>2 t.s.</span></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="small-btn">Login</button>
+                </div>
+
+                <div class="topbar-center">
+                    <h1>RECIPE HUNTER</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="small-btn">Language</button>
+                    <button class="small-btn">Light/Dark</button>
+                    <div class="profile-circle"></div>
+                </div>
+            </header>
+
+            <section class="controls">
+                <input type="text" placeholder="Search for the recipes...">
+                <select>
+                    <option>Filter by...</option>
+                </select>
+                <select>
+                    <option>Sort by...</option>
+                </select>
+            </section>
+
+            <section class="recipe-grid">
+                {% for recipe in recipes %}
+                    <div class="recipe-card">
+                        <div class="recipe-card-image">
+                            {% if recipe.image %}
+                                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                            {% else %}
+                                <div class="image-placeholder"></div>
+                            {% endif %}
+                        </div>
+
+                        <div class="recipe-card-content">
+                            <div class="recipe-card-top">
+                                <h2>
+                                    <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a>
+                                </h2>
+                                <div class="time-badge">
+                                    {{ recipe.cooking_time }}m
+                                </div>
+                            </div>
+
+                            <p class="recipe-status">Recipe available</p>
+                            <p class="recipe-description">{{ recipe.description }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="empty-message">
+                        <p>No recipes found.</p>
+                    </div>
+                {% endfor %}
+            </section>
+        </main>
+    </div>
 </body>
 </html>

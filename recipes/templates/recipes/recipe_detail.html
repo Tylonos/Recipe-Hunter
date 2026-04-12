@@ -1,19 +1,118 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>{{ recipe.title }}</title>
+    <link rel="stylesheet" href="{% static 'recipes/style.css' %}">
 </head>
 <body>
-    <h1>{{ recipe.title }}</h1>
+    <div class="detail-page">
+        <header class="detail-topbar">
+            <div class="detail-topbar-left">
+                <a class="back-link subtle-back" href="{% url 'recipe_list' %}">← Back</a>
+            </div>
 
-    {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" width="400">
-    {% endif %}
+            <div class="detail-topbar-center">
+                <h1>RECIPE HUNTER</h1>
+            </div>
 
-    <p>{{ recipe.description }}</p>
-    <p>Cooking time: {{ recipe.cooking_time }} minutes</p>
-    <p>Created at: {{ recipe.created_at }}</p>
+            <div class="detail-topbar-right">
+                <button class="small-btn">Language</button>
+                <button class="small-btn">Light/Dark</button>
+                <div class="profile-circle"></div>
+            </div>
+        </header>
 
-    <a href="{% url 'recipe_list' %}">Back to recipe list</a>
+        <section class="detail-hero">
+            <h2 class="detail-title">{{ recipe.title }}</h2>
+
+            <div class="detail-gallery">
+                <button class="gallery-arrow">‹</button>
+
+                <div class="detail-gallery-track">
+                    <div class="gallery-side-card left-card"></div>
+
+                    <div class="gallery-main-card">
+                        {% if recipe.image %}
+                            <img class="detail-main-image" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                        {% else %}
+                            <div class="detail-main-placeholder"></div>
+                        {% endif %}
+                    </div>
+
+                    <div class="gallery-side-card right-card"></div>
+                </div>
+
+                <button class="gallery-arrow">›</button>
+            </div>
+
+            <div class="detail-thumbnails">
+                {% if recipe.image %}
+                    <img class="detail-thumb active-thumb" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                    <img class="detail-thumb" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                    <img class="detail-thumb" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                {% else %}
+                    <div class="detail-thumb placeholder-thumb"></div>
+                    <div class="detail-thumb placeholder-thumb"></div>
+                    <div class="detail-thumb placeholder-thumb"></div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="detail-content-grid">
+            <aside class="detail-panel ingredients-panel">
+                <h3>Ingredients</h3>
+                <ul class="detail-list">
+                    <li>2 apples</li>
+                    <li>200g flour</li>
+                    <li>100g butter</li>
+                    <li>50g sugar</li>
+                    <li>1 tsp cinnamon</li>
+                </ul>
+            </aside>
+
+            <main class="detail-panel instructions-panel">
+                <h3>Instructions</h3>
+
+                <div class="instruction-block">
+                    <p>
+                        {{ recipe.description }}
+                    </p>
+                </div>
+
+                <div class="instruction-block">
+                    <p>
+                        Step 1: Prepare the ingredients and preheat the oven.
+                        Step 2: Mix the filling and prepare the dough.
+                        Step 3: Assemble the pie and bake until golden.
+                    </p>
+                </div>
+
+                <div class="instruction-block">
+                    <p>
+                        Let the dish cool slightly before serving. This section can later be replaced
+                        with real step-by-step cooking instructions from the database.
+                    </p>
+                </div>
+            </main>
+
+            <aside class="detail-panel info-panel">
+                <h3>Recipe Info</h3>
+                <div class="info-box">
+                    <p><strong>Cooking time:</strong> {{ recipe.cooking_time }} minutes</p>
+                    <p><strong>Created at:</strong> {{ recipe.created_at }}</p>
+                    <p><strong>Difficulty:</strong> Medium</p>
+                    <p><strong>Servings:</strong> 4</p>
+                </div>
+
+                <div class="history-box">
+                    <p>
+                        This dish has a classic homemade style and is a great base for a richer
+                        recipe story later on.
+                    </p>
+                </div>
+            </aside>
+        </section>
+    </div>
 </body>
 </html>
