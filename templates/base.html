@@ -1,0 +1,34 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recipe Hunter</title>
+    <link rel="stylesheet" href="{% static 'recipes/auth.css' %}">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">RECIPE HUNTER</div>
+      <div class="top-actions">
+        {% if user.is_authenticated %}
+          <a href="{% url 'recipes:account' %}" class="profile-btn">
+            {% if user.profile.image.url %}
+              <img src="{{ user.profile.image.url }}" alt="profile" class="profile-img">
+            {% else %}
+              <span class="profile-placeholder">{{ user.username|first|upper }}</span>
+            {% endif %}
+          </a>
+        {% else %}
+          <a href="{% url 'recipes:login' %}" class="profile-btn">
+            <span class="profile-placeholder">Login</span>
+          </a>
+        {% endif %}
+      </div>
+    </header>
+
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

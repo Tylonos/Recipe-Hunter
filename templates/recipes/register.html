@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-card">
+  <h2>Create an account</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <button type="submit" class="btn">Register</button>
+  </form>
+  <p>Already have an account? <a href="{% url 'recipes:login' %}">Login</a></p>
+</div>
+{% endblock %}
