@@ -1,5 +1,12 @@
 from django.contrib import admin
+from .models import Recipe, Ingredient, RecipeIngredient
 
-from .models import Recipe
+class RecipeIngredientInline(admin.TabularInline):
+    model = RecipeIngredient
+    extra = 1
 
-admin.site.register(Recipe)
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    inlines = [RecipeIngredientInline]
+
+admin.site.register(Ingredient)

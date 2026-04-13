@@ -19,28 +19,22 @@
                 </select>
             </div>
 
-            <div class="sidebar-section">
-                <h3>All ingredients</h3>
+            <div class="all-ingredients">
                 <ul class="ingredient-list">
-                    <li>Apple</li>
-                    <li>Apple</li>
-                    <li>Apple</li>
-                    <li>Apple</li>
-                    <li>Apple</li>
-                    <li>Apple</li>
-                    <li>Apple</li>
-                    <li>Apple</li>
+                    {% for ingredient in ingredients %}
+                        <li class="ingredient-item" data-id="{{ ingredient.id }}">
+                            {{ ingredient.name }}
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
 
             <div class="sidebar-section">
                 <input type="text" placeholder="Search for ingredients...">
                 <h3>Added ingredients</h3>
-                <ul class="ingredient-list">
-                    <li><span>Tomato</span><span>x4</span></li>
-                    <li><span>Beef</span><span>350g</span></li>
-                    <li><span>Sunflower oil</span><span>2 t.s.</span></li>
-                </ul>
+
+                <!-- FIXED: correct class + empty list -->
+                <ul class="added-ingredients"></ul>
             </div>
         </aside>
 
@@ -104,5 +98,25 @@
             </section>
         </main>
     </div>
+
+    <!-- JavaScript for ingredient selection -->
+    <script>
+        const addedList = document.querySelector(".added-ingredients");
+        const ingredientItems = document.querySelectorAll(".ingredient-item");
+
+        ingredientItems.forEach(item => {
+            item.addEventListener("click", () => {
+                const name = item.textContent.trim();
+                const amount = prompt(`How much ${name}?`);
+
+                if (!amount) return;
+
+                const li = document.createElement("li");
+                li.textContent = `${name} — ${amount}`;
+                addedList.appendChild(li);
+            });
+        });
+    </script>
+
 </body>
 </html>
