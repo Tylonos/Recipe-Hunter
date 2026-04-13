@@ -99,6 +99,8 @@ body {
     font-weight: bold;
 }
 
+.brand { font-weight:700; font-size:28px; text-decoration:none; color:inherit }
+
 .topbar-right {
     display: flex;
     justify-content: flex-end;

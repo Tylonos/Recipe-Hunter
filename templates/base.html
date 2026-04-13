@@ -5,23 +5,41 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recipe Hunter</title>
+    <link rel="stylesheet" href="{% static 'recipes/style.css' %}">
     <link rel="stylesheet" href="{% static 'recipes/auth.css' %}">
   </head>
   <body>
     <header class="topbar">
-      <div class="brand">RECIPE HUNTER</div>
-      <div class="top-actions">
+      <div class="topbar-center">
+        <a href="{% url 'home' %}" class="brand">RECIPE HUNTER</a>
+      </div>
+
+      <div class="topbar-right">
+        {# Show Recipes link only when not inside the recipes app #}
+        {% if request.resolver_match and request.resolver_match.view_name == 'recipes:recipe_list' %}
+          {# on recipes list view: don't show Recipes button #}
+        {% else %}
+          <a href="{% url 'recipes:recipe_list' %}" class="small-btn">Recipes</a>
+        {% endif %}
+
+        <button class="small-btn">Language</button>
+        <button class="small-btn">Light/Dark</button>
+        {% if user.is_superuser %}
+          <a href="{% url 'admin:index' %}" class="small-btn">Admin</a>
+        {% endif %}
+
+        {# Profile/avatar button as image on the right (links to account or login) #}
         {% if user.is_authenticated %}
-          <a href="{% url 'recipes:account' %}" class="profile-btn">
-            {% if user.profile.image.url %}
+          <a href="{% url 'recipes:account' %}" class="profile-btn" title="Account">
+            {% if user.profile.image %}
               <img src="{{ user.profile.image.url }}" alt="profile" class="profile-img">
             {% else %}
-              <span class="profile-placeholder">{{ user.username|first|upper }}</span>
+              <img src="{% static 'recipes/default_avatar.svg' %}" alt="profile" class="profile-img">
             {% endif %}
           </a>
         {% else %}
-          <a href="{% url 'recipes:login' %}" class="profile-btn">
-            <span class="profile-placeholder">Login</span>
+          <a href="{% url 'recipes:login' %}" class="profile-btn" title="Login">
+            <img src="{% static 'recipes/default_avatar.svg' %}" alt="login" class="profile-img">
           </a>
         {% endif %}
       </div>

@@ -1,11 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Recipe Hunter</title>
-    <link rel="stylesheet" href="{% static 'recipes/style.css' %}">
-</head>
-<body>
+
+{% block content %}
     <div class="page-layout">
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -45,21 +41,7 @@
         </aside>
 
         <main class="main-content">
-            <header class="topbar">
-                <div class="topbar-left">
-                    <button class="small-btn">Login</button>
-                </div>
-
-                <div class="topbar-center">
-                    <h1>RECIPE HUNTER</h1>
-                </div>
-
-                <div class="topbar-right">
-                    <button class="small-btn">Language</button>
-                    <button class="small-btn">Light/Dark</button>
-                    <div class="profile-circle"></div>
-                </div>
-            </header>
+            <!-- header is provided by base.html (title and header controls) -->
 
             <section class="controls">
                 <input type="text" placeholder="Search for the recipes...">
@@ -104,5 +86,4 @@
             </section>
         </main>
     </div>
-</body>
-</html>
+{% endblock %}

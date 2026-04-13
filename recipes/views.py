@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserRegisterForm, ProfileForm
+from .models import Profile
 
 
 def recipe_list(request):
@@ -24,9 +25,15 @@ def register(request):
         profile_form = ProfileForm(request.POST, request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
+            # A Profile is automatically created by the post_save signal for User.
+            # Use get_or_create to avoid UNIQUE constraint errors when a Profile
+            # already exists for the newly created user.
+            profile, created = Profile.objects.get_or_create(user=user)
+            # If the form uploaded an image, update the profile image.
+            image = profile_form.cleaned_data.get('image')
+            if image:
+                profile.image = image
+                profile.save()
             messages.success(request,'Your account has been created. You can now log in.')
             return redirect('recipes:login')
     else:
