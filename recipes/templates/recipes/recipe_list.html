@@ -79,7 +79,7 @@
                         <div class="recipe-card-content">
                             <div class="recipe-card-top">
                                 <h2>
-                                    <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a>
+                                    <a href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.title }}</a>
                                 </h2>
                                 <div class="time-badge">
                                     {{ recipe.cooking_time }}m
