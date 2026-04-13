@@ -1,5 +1,6 @@
 
 from django.shortcuts import render, get_object_or_404
+from .models import Recipe, Ingredient
 from .models import Recipe
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -11,8 +12,11 @@ from .models import Profile
 
 def recipe_list(request):
     recipes = Recipe.objects.all()
-    return render(request, 'recipes/recipe_list.html', {'recipes': recipes})
-
+    ingredients = Ingredient.objects.all()
+    return render(request, 'recipes/recipe_list.html', {
+        'recipes': recipes,
+        'ingredients': ingredients
+    })
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)

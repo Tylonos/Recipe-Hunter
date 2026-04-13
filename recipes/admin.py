@@ -2,16 +2,17 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
-from .models import Recipe, Profile
+from .models import Recipe
+from .models import Profile, Ingredient, RecipeIngredient
+
+class RecipeIngredientInline(admin.TabularInline):
+    model = RecipeIngredient
+    extra = 1
 
 
-class RecipeInline(admin.TabularInline):
-	model = Recipe
-	extra = 0
-
-
-# Register Recipe normally
-admin.site.register(Recipe)
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    inlines = [RecipeIngredientInline]
 
 
 # Show recipes on the User admin page; do not register Profile as a separate model
@@ -25,5 +26,6 @@ except Exception:
 class CustomUserAdmin(UserAdmin):
 	inlines = UserAdmin.inlines + [RecipeInline] if getattr(UserAdmin, 'inlines', None) else [RecipeInline]
 
-
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(Ingredient)
+admin.site.register(RecipeIngredient)
+admin.site.register( Profile)

@@ -63,12 +63,13 @@
             <aside class="detail-panel ingredients-panel">
                 <h3>Ingredients</h3>
                 <ul class="detail-list">
-                    <li>2 apples</li>
-                    <li>200g flour</li>
-                    <li>100g butter</li>
-                    <li>50g sugar</li>
-                    <li>1 tsp cinnamon</li>
+                    {% for ri in ingredients %}
+                    <li>{{ ri.amount }} {{ ri.ingredient.name }}</li>
+                    {% empty %}
+                    <li>No ingredients listed.</li>
+                    {% endfor %}
                 </ul>
+
             </aside>
 
             <main class="detail-panel instructions-panel">
